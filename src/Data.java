@@ -5,6 +5,6 @@ public class Data {
     private String type;
     private String title;
     private Date time;
-    private float amount;
+    private double amount;
     private String comment;
 }
