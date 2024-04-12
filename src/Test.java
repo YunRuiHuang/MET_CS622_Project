@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.GregorianCalendar;
 
 public class Test {
@@ -9,9 +10,21 @@ public class Test {
 
     public void todo(){
         Backend testBackend = new Backend();
-        testEdit(testBackend);
-        testSort(testBackend);
+//        testAdd(testBackend);
+        testQuery(testBackend);
+        testSummary(testBackend);
+//        testEdit(testBackend);
+//        testSort(testBackend);
 
+    }
+
+    public void testQuery(Backend testBackend){
+        LocalDateTime dateTime = LocalDateTime.of(2024, 4, 11, 20, 0);
+        Timestamp time = Timestamp.valueOf(dateTime);
+        Data[] array = testBackend.query(null,time,null);
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
     }
 
     public void testEdit(Backend testBackend){
@@ -34,14 +47,28 @@ public class Test {
         for (int i = 0; i < 10; i++) {
             String type = ((i%2)==1) ? "in" : "out";
             String title = "test title " + i;
-            Timestamp time = new Timestamp(System.currentTimeMillis());
+            LocalDateTime startOfMonth = LocalDateTime.of(2024, 1+i, 1, 0, 0);
+            Timestamp time = Timestamp.valueOf(startOfMonth);
             double amount = 1234.5 * (1+i);
             String comment = "comment " + i;
             testBackend.add(type,title,time,amount,comment);
         }
-        Data[] array = testBackend.query("",null,null);
+        Data[] array = testBackend.query(null,null,null);
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
+        }
+    }
+
+    public void testDelete(Backend testBackend){
+        testBackend.delete(401);
+    }
+
+    public void testSummary(Backend testBackend){
+        System.out.println(testBackend.summary());
+        System.out.println(testBackend.summaryByYear(2021));
+        System.out.println(testBackend.summaryByYear(2024));
+        for (int i = 1; i < 13; i++) {
+            System.out.println(testBackend.summaryByMonth(2024,i));
         }
     }
 

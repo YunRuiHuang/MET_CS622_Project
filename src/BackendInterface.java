@@ -1,6 +1,11 @@
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * @author yunrui huang
+ * @update 04/12/2024
+ * Defines the interface for the backend functionality.
+ */
 interface BackendInterface {
     public Data[] query(String type, Timestamp  startTime, Timestamp endTime);
 
@@ -16,5 +21,5 @@ interface BackendInterface {
 
     public Summary summaryByYear(int year);
 
-    public Summary summaryByMonth(int month);
+    public Summary summaryByMonth(int year, int month);
 }

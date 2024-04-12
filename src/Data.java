@@ -1,6 +1,11 @@
 import java.sql.Timestamp;
 import java.util.Date;
 
+/**
+ * @author yunrui huang
+ * @update 04/12/2024
+ * Represents a data entity.
+ */
 public class Data {
     private int id;
     private String type;
@@ -10,13 +15,19 @@ public class Data {
     private String comment;
 
     /**
-     *
+     * Constructs a Data object with the specified attributes.
      * @param id
+     * The ID of the data.
      * @param type
+     * The type of the data.
      * @param title
+     * The title of the data.
      * @param time
+     * The timestamp of the data.
      * @param amount
+     * The amount of the data.
      * @param comment
+     * The comment associated with the data.
      */
     public Data(int id, String type, String title, Timestamp time, double amount, String comment) {
         this.id = id;
@@ -27,6 +38,9 @@ public class Data {
         this.comment = comment;
     }
 
+    /**
+     * Default constructor initializes the Data object with default values.
+     */
     public Data(){
         this(0,"","",null,0,"");
     }

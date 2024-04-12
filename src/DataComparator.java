@@ -1,13 +1,12 @@
 import java.util.Comparator;
 import java.util.Date;
 
+/**
+ * @author yunrui huang
+ * @update 04/12/2024
+ * Comparator for sorting Data objects based on various criteria.
+ */
 public class DataComparator implements Comparator<Data> {
-    //    private int id;
-//    private String type;
-//    private String title;
-//    private Date time;
-//    private float amount;
-//    private String comment;
     private int type;
     private Boolean isReversed;
 
@@ -27,6 +26,15 @@ public class DataComparator implements Comparator<Data> {
         this.isReversed = isReversed;
     }
 
+    /**
+     * Compares two Data objects based on the specified criteria.
+     * @param o1
+     * The first Data object to be compared.
+     * @param o2
+     * The second Data object to be compared.
+     * @return
+     * A negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
+     */
     @Override
     public int compare(Data o1, Data o2) {
         int result = 0;
