@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu Apr 11 21:53:31 EDT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018e-d002-8cdd-0000030d4f40 
+on database directory D:\cs\MET\MET CS 622\MET_CS622_Project\project with class loader sun.misc.Launcher$AppClassLoader@b4aac2 
+Loaded from file:/D:/cs/MET/MET%20CS%20622/MET_CS622_Project/lib/derby.jar
+java.vendor=OpenLogic-OpenJDK
+java.runtime.version=1.8.0-262-b10
+user.dir=D:\cs\MET\MET CS 622\MET_CS622_Project
+os.name=Windows 10
+os.arch=x86
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
