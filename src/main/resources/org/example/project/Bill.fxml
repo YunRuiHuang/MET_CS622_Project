@@ -31,7 +31,7 @@
             <Label layoutX="305.0" layoutY="7.0" text="End Time" />
             <SplitMenuButton fx:id="type" contentDisplay="CENTER" layoutX="37.0" layoutY="24.0" mnemonicParsing="false" text="type">
               <items>
-                <MenuItem fx:id="income" mnemonicParsing="true" onAction="#typeAction" text="Income" />
+                <MenuItem fx:id="Income" mnemonicParsing="true" onAction="#typeAction" text="Income" />
                 <MenuItem fx:id="expend" mnemonicParsing="true" onAction="#typeAction" text="Expend" />
               </items>
             </SplitMenuButton>
@@ -55,13 +55,13 @@
          </children>
       </Pane>
       <Button accessibleRole="PARENT" contentDisplay="CENTER" minHeight="19.0" mnemonicParsing="false" onAction="#addAction" prefHeight="28.0" prefWidth="600.0" style="-fx-background-color: lightblue;" text="+" />
-      <TableView accessibleRole="PARENT" cache="true" prefHeight="201.0" prefWidth="600.0">
+      <TableView fx:id="tableView" accessibleRole="PARENT" cache="true" prefHeight="194.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Title" />
-          <TableColumn prefWidth="75.0" text="Type" />
-            <TableColumn prefWidth="75.0" text="Amount" />
-            <TableColumn prefWidth="75.0" text="Time" />
-            <TableColumn prefWidth="75.0" text="..." />
+          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+          <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+            <TableColumn fx:id="amountColumn" prefWidth="75.0" text="Amount" />
+            <TableColumn fx:id="timeColumn" prefWidth="150.0" text="Time" />
+            <TableColumn fx:id="moreColum" prefWidth="90.0" text="..." />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
