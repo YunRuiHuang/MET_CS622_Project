@@ -1,0 +1,19 @@
+.table-cell {
+    -fx-alignment: CENTER;
+}
+
+.button {
+    -fx-padding: 3 6 3 6;
+}
+
+.button-cell {
+    -fx-background-color: lightblue; /* 蓝色 */
+    -fx-background-radius: 15px; /* 设置足够的圆角以形成一个完美的圆形 */
+    -fx-min-width: 12px; /* 半径为15px的圆的直径 */
+    -fx-min-height: 12px;
+    -fx-max-width: 12px;
+    -fx-max-height: 12px;
+    -fx-padding: 0; /* 去掉内边距 */
+    -fx-border-color: transparent; /* 无边框 */
+    -fx-text-fill: transparent; /* 隐藏按钮文本 */
+}

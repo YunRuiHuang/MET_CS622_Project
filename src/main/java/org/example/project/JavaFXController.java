@@ -6,16 +6,20 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.*;
+import java.util.Optional;
 
 public class JavaFXController {
     private static final int PER_PAGE = 7;
@@ -28,12 +32,6 @@ public class JavaFXController {
 
     @FXML
     private Button clean;
-
-    @FXML
-    private MenuItem expend;
-
-    @FXML
-    private MenuItem income;
 
     @FXML
     private Pagination page;
@@ -60,14 +58,60 @@ public class JavaFXController {
     private TableColumn<Data, String> timeColumn;
 
     @FXML
-    private TableColumn<?, ?> moreColum;
+    private TableColumn<Data, Void> moreColumn;
 
+    @FXML
+    private TableColumn<Data, Integer> idColumn;
+    private void setupMoreColumn() {
+        moreColumn.setCellFactory(new Callback<TableColumn<Data, Void>, TableCell<Data, Void>>() {
+            @Override
+            public TableCell<Data, Void> call(final TableColumn<Data, Void> param) {
+                final TableCell<Data, Void> cell = new TableCell<Data, Void>() {
+
+                    private final Button editBtn = new Button();
+                    private final Button infoBtn = new Button();
+                    private final Button deleteBtn = new Button();
+                    private final HBox hbox = new HBox(8, editBtn, infoBtn, deleteBtn);
+
+                    {
+                        hbox.setAlignment(Pos.CENTER);
+                        editBtn.getStyleClass().add("button-cell");
+                        infoBtn.getStyleClass().add("button-cell");
+                        deleteBtn.getStyleClass().add("button-cell");
+
+                        editBtn.setTooltip(new Tooltip("Edit"));
+                        infoBtn.setTooltip(new Tooltip("Info"));
+                        deleteBtn.setTooltip(new Tooltip("Delete"));
+
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Data data = getTableRow().getItem();
+                            int id = data.getId();
+                            editBtn.setOnAction(event -> editAction(id));
+                            infoBtn.setOnAction(event -> infoAction(id));
+                            deleteBtn.setOnAction(event -> deleteAction(id));
+                            setGraphic(hbox);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+    }
     private void queryAndUpdateTableView(String type, Timestamp startDate, Timestamp endDate){
+        tableView.setFixedCellSize(25);
+        setupMoreColumn();
         Backend backend = new Backend();
         Data[] data = backend.query(type,startDate,endDate);
-//        for (int i = 0; i < data.length; i++) {
-//            System.out.println(data[i]);
-//        }
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i]);
+        }
         ObservableList<Data> dataList = FXCollections.observableArrayList(data);
 
         int totalPages = (int) Math.ceil(dataList.size()/(double) PER_PAGE);
@@ -94,9 +138,26 @@ public class JavaFXController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setVisible(false);
         queryAndUpdateTableView(null, null, null);
     }
 
+    private void refreshData() {
+        String selectedType = type.getText();
+        String queryType = "type".equals(selectedType) ? null : selectedType;
+        LocalDate startDate = Stime.getValue();
+        LocalDate endDate = Etime.getValue();
+        if (startDate != null && endDate != null) {
+            LocalDateTime startDateTime = startDate.atStartOfDay();
+            LocalDateTime endDateTime = endDate.atStartOfDay();
+            Timestamp startTime = Timestamp.valueOf(startDateTime);
+            Timestamp endTime = Timestamp.valueOf(endDateTime);
+            queryAndUpdateTableView(queryType, startTime, endTime);
+        } else {
+            queryAndUpdateTableView(null, null, null); // No dates selected, query all
+        }
+    }
     @FXML
     void addAction(ActionEvent event) {
         try {
@@ -144,13 +205,36 @@ public class JavaFXController {
         Timestamp startTime = Timestamp.valueOf(startDateTime);
         Timestamp endTime = Timestamp.valueOf(endDateTime);
         queryAndUpdateTableView(type,startTime,endTime);
-
-
     }
 
     @FXML
     void typeAction(ActionEvent event) {
         MenuItem sourceItem = (MenuItem) event.getSource();
         type.setText(sourceItem.getText());
+    }
+
+    private void editAction(int id) {
+        System.out.println("Edit at index: " + id);
+        // 实现编辑逻辑
+    }
+
+    private void deleteAction(int id) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Confirm Deletion");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure to delete this line of bills");
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> response = alert.showAndWait();
+        if (response.isPresent() && response.get() == ButtonType.YES) {
+            Backend backend = new Backend();
+            backend.delete(id);
+            refreshData();
+        }
+        // 实现删除逻辑
+    }
+
+    private void infoAction(int id) {
+        System.out.println("Info at index: " + id);
+        // 实现信息查看逻辑
     }
 }

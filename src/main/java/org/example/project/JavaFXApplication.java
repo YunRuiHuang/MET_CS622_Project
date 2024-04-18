@@ -15,6 +15,7 @@ public class JavaFXApplication extends Application {
         loader.setLocation(getClass().getResource("Bill.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("project");
         stage.setResizable(false);
         stage.setScene(scene);
