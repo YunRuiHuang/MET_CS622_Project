@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class addController {
+public class editController {
 
     @FXML
     private ToggleGroup TypeGroup;
@@ -26,14 +26,37 @@ public class addController {
     private TextArea comment;
 
     @FXML
-    private Button submit;
+    private DatePicker date;
 
     @FXML
-    private DatePicker date;
+    private RadioButton expend;
+
+    @FXML
+    private RadioButton income;
+
+    @FXML
+    private Button submit;
 
     @FXML
     private TextField titleField;
 
+    private Data currentData;
+
+    private int currentId;
+
+    public void initData(Data data) {
+        this.currentData = data;
+        this.titleField.setText(data.getTitle());
+        this.amount.setText(String.valueOf(data.getAmount()));
+        this.comment.setText(data.getComment());
+        if ("Income".equals(data.getType())) {
+            income.setSelected(true);
+        } else if ("Expend".equals(data.getType())) {
+            expend.setSelected(true);
+        }
+        this.date.setValue(data.getTime().toLocalDateTime().toLocalDate());
+        this.currentId = data.getId();
+    }
     public void initialize() {
         // 添加监听器，确保TextField只能输入数字
         amount.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -49,8 +72,16 @@ public class addController {
         stage.close();
     }
 
+    public interface OnSubmitDone{
+        void onEditSubmit();
+    }
+    private OnSubmitDone onSubmitDoneCallback;
+
+    public void setOnSubmitDoneCallback(OnSubmitDone callback) {
+        this.onSubmitDoneCallback = callback;
+    }
     @FXML
-    void submitAction(ActionEvent event) {
+    void editAction(ActionEvent event) {
         Toggle selectedToggle = TypeGroup.getSelectedToggle();
         String selectedType = selectedToggle.getUserData().toString();
         String titleText = titleField.getText();
@@ -73,6 +104,12 @@ public class addController {
         Timestamp timestamp = Timestamp.valueOf(dateTime);
         double amount = Double.parseDouble(amountText);
         Backend backend = new Backend();
-        backend.add(selectedType, titleText, timestamp, amount, commentText);
+        backend.edit(currentId, selectedType, titleText, timestamp, amount, commentText);
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        if (onSubmitDoneCallback != null) {
+            onSubmitDoneCallback.onEditSubmit();
+        }
     }
 }

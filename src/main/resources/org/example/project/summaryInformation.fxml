@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.project.summaryController">
+   <children>
+      <VBox prefHeight="350.0" prefWidth="500.0">
+         <children>
+            <Pane prefHeight="80.0" prefWidth="500.0">
+               <children>
+                  <SplitMenuButton fx:id="selectYear" layoutX="23.0" layoutY="41.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="108.0" text="Select Year">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </SplitMenuButton>
+                  <Label layoutX="171.0" layoutY="18.0" text="Income">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Label>
+                  <Label fx:id="incomeText" layoutX="162.0" layoutY="40.0" prefHeight="24.0" prefWidth="80.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="282.0" layoutY="18.0" text="Expend">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Label>
+                  <Label fx:id="expendText" layoutX="267.0" layoutY="40.0" prefHeight="24.0" prefWidth="80.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="393.0" layoutY="20.0" text="Total">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Label>
+                  <Label fx:id="totalText" layoutX="370.0" layoutY="40.0" prefHeight="24.0" prefWidth="80.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="62.0" layoutY="18.0" text="Year">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </Label>
+               </children>
+            </Pane>
+            <SplitPane dividerPositions="0.5" prefHeight="270.0" prefWidth="500.0">
+              <items>
+                  <TableView fx:id="tableView1" prefHeight="270.0" prefWidth="245.0">
+                    <columns>
+                      <TableColumn fx:id="monthColumn1" prefWidth="50.0" text="Month" />
+                      <TableColumn fx:id="incomeColumn1" prefWidth="60.0" text="Income" />
+                        <TableColumn fx:id="expendColumn1" prefWidth="60.0" text="Expend" />
+                        <TableColumn fx:id="totalColumn1" prefWidth="75.0" text="Total" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <TableView fx:id="tableView2" prefHeight="270.0" prefWidth="245.0">
+                    <columns>
+                      <TableColumn fx:id="monthColumn2" prefWidth="50.0" text="Month" />
+                      <TableColumn fx:id="incomeColumn2" prefWidth="60.0" text="Income" />
+                        <TableColumn fx:id="expendColumn2" prefWidth="60.0" text="Expend" />
+                        <TableColumn fx:id="totalColumn2" prefWidth="75.0" text="Total" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+              </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

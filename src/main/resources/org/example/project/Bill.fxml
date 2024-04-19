@@ -25,33 +25,53 @@
       </Pane>
       <Pane prefHeight="98.0" prefWidth="600.0">
          <children>
-            <SplitMenuButton fx:id="type" contentDisplay="CENTER" layoutX="37.0" layoutY="24.0" mnemonicParsing="false" text="type">
+            <SplitMenuButton fx:id="type" contentDisplay="CENTER" layoutX="37.0" layoutY="20.0" mnemonicParsing="false" text="type">
               <items>
                 <MenuItem fx:id="Income" mnemonicParsing="true" onAction="#typeAction" text="Income" />
                 <MenuItem fx:id="expend" mnemonicParsing="true" onAction="#typeAction" text="Expend" />
               </items>
             </SplitMenuButton>
-            <DatePicker fx:id="Stime" layoutX="123.0" layoutY="24.0" prefHeight="23.0" prefWidth="145.0" />
-            <Label layoutX="166.0" layoutY="7.0" text="Start Time" />
-            <DatePicker fx:id="Etime" layoutX="281.0" layoutY="24.0" prefHeight="23.0" prefWidth="146.0" />
-            <Label layoutX="305.0" layoutY="7.0" text="End Time" />
-            <Label layoutX="61.09999990463257" layoutY="57.09999990463257" text="Income">
+            <DatePicker fx:id="Stime" layoutX="123.0" layoutY="20.0" prefHeight="23.0" prefWidth="145.0" />
+            <Label layoutX="166.0" layoutY="3.0" text="Start Time" />
+            <DatePicker fx:id="Etime" layoutX="281.0" layoutY="20.0" prefHeight="23.0" prefWidth="146.0" />
+            <Label layoutX="305.0" layoutY="3.0" text="End Time" />
+            <Label layoutX="70.0" layoutY="48.0" text="Income">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="195.09999990463257" layoutY="57.09999990463257" text="Expend">
+            <Label fx:id="incomeText" layoutX="52.0" layoutY="72.0" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: lightgray; -fx-background-radius: 10;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="204.0" layoutY="48.0" text="Expend">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="332.09999990463257" layoutY="57.09999990463257" text="Total">
+            <Label fx:id="expendText" layoutX="186.0" layoutY="72.0" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: lightgray; -fx-background-radius: 10;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="340.0" layoutY="48.0" text="Total">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="query" layoutX="451.0" layoutY="24.0" mnemonicParsing="false" onAction="#queryAction" style="-fx-background-radius: 10;" text="query" />
-            <Button fx:id="clean" layoutX="511.0" layoutY="24.0" mnemonicParsing="false" onAction="#cleanAction" style="-fx-background-radius: 10;" text="clean" />
+            <Label fx:id="totalText" layoutX="312.0" layoutY="72.0" prefHeight="24.0" prefWidth="100.0" style="-fx-background-color: lightgray; -fx-background-radius: 10;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="query" layoutX="451.0" layoutY="20.0" mnemonicParsing="false" onAction="#queryAction" style="-fx-background-radius: 10;" text="query" />
+            <Button fx:id="clean" layoutX="511.0" layoutY="20.0" mnemonicParsing="false" onAction="#cleanAction" style="-fx-background-radius: 10;" text="clean" />
+            <Button fx:id="summary" layoutX="447.0" layoutY="54.0" mnemonicParsing="false" onAction="#summaryAction" style="-fx-background-color: transparent;" text="Summary" textFill="#2498ff">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Button accessibleRole="PARENT" contentDisplay="CENTER" minHeight="19.0" mnemonicParsing="false" onAction="#addAction" prefHeight="28.0" prefWidth="600.0" style="-fx-background-color: lightblue;" text="+" />

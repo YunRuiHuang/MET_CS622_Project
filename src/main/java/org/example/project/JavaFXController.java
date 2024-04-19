@@ -62,6 +62,16 @@ public class JavaFXController {
 
     @FXML
     private TableColumn<Data, Integer> idColumn;
+
+    @FXML
+    private Label incomeText;
+
+    @FXML
+    private Label expendText;
+
+    @FXML
+    private Label totalText;
+
     private void setupMoreColumn() {
         moreColumn.setCellFactory(new Callback<TableColumn<Data, Void>, TableCell<Data, Void>>() {
             @Override
@@ -75,9 +85,9 @@ public class JavaFXController {
 
                     {
                         hbox.setAlignment(Pos.CENTER);
-                        editBtn.getStyleClass().add("button-cell");
-                        infoBtn.getStyleClass().add("button-cell");
-                        deleteBtn.getStyleClass().add("button-cell");
+                        editBtn.getStyleClass().add("editbutton-cell");
+                        infoBtn.getStyleClass().add("infobutton-cell");
+                        deleteBtn.getStyleClass().add("deletebutton-cell");
 
                         editBtn.setTooltip(new Tooltip("Edit"));
                         infoBtn.setTooltip(new Tooltip("Info"));
@@ -93,8 +103,8 @@ public class JavaFXController {
                         } else {
                             Data data = getTableRow().getItem();
                             int id = data.getId();
-                            editBtn.setOnAction(event -> editAction(id));
-                            infoBtn.setOnAction(event -> infoAction(id));
+                            editBtn.setOnAction(event -> editAction(data));
+                            infoBtn.setOnAction(event -> infoAction(data));
                             deleteBtn.setOnAction(event -> deleteAction(id));
                             setGraphic(hbox);
                         }
@@ -109,9 +119,20 @@ public class JavaFXController {
         setupMoreColumn();
         Backend backend = new Backend();
         Data[] data = backend.query(type,startDate,endDate);
-        for (int i = 0; i < data.length; i++) {
-            System.out.println(data[i]);
-        }
+        Summary summary = backend.summary();
+        incomeText.setAlignment(Pos.CENTER);
+        expendText.setAlignment(Pos.CENTER);
+        totalText.setAlignment(Pos.CENTER);
+        String incomeFormatted = String.format("%.2f",summary.getIn());
+        String expendFormatted = String.format("%.2f",summary.getOut());
+        String totalFormatted = String.format("%.2f",summary.getTotal());
+        incomeText.setText(incomeFormatted);
+        expendText.setText(expendFormatted);
+        totalText.setText(totalFormatted);
+//        for (int i = 0; i < data.length; i++) {
+//            System.out.println(data[i]);
+//        }
+//        System.out.println(summary);
         ObservableList<Data> dataList = FXCollections.observableArrayList(data);
 
         int totalPages = (int) Math.ceil(dataList.size()/(double) PER_PAGE);
@@ -213,8 +234,28 @@ public class JavaFXController {
         type.setText(sourceItem.getText());
     }
 
-    private void editAction(int id) {
-        System.out.println("Edit at index: " + id);
+    private void editAction(Data data) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("editInformation.fxml"));
+            Parent root = loader.load(); // Load the FXML file
+
+            editController editController = loader.getController();
+            editController.initData(data);
+            editController.setOnSubmitDoneCallback(()->{
+                refreshData();
+            });
+            Stage stage = new Stage();
+            stage.setHeight(350);
+            stage.setWidth(500);
+            stage.setTitle("Edit Information");
+            Scene scene = new Scene(root); // Create a scene with the loaded FXML
+            stage.setResizable(false);
+            stage.setScene(scene); // Set the scene for the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // 实现编辑逻辑
     }
 
@@ -233,8 +274,44 @@ public class JavaFXController {
         // 实现删除逻辑
     }
 
-    private void infoAction(int id) {
-        System.out.println("Info at index: " + id);
+    private void infoAction(Data data) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("commentInformation.fxml"));
+            Parent root = loader.load(); // Load the FXML file
+
+            commentController commentController = loader.getController();
+            commentController.initData(data);
+            Stage stage = new Stage();
+            stage.setHeight(350);
+            stage.setWidth(500);
+            stage.setTitle("Comment Information");
+            Scene scene = new Scene(root); // Create a scene with the loaded FXML
+            stage.setResizable(false);
+            stage.setScene(scene); // Set the scene for the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // 实现信息查看逻辑
+    }
+
+    @FXML
+    void summaryAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("summaryInformation.fxml"));
+            Parent root = loader.load(); // Load the FXML file
+            Stage stage = new Stage();
+            stage.setHeight(350);
+            stage.setWidth(500);
+            stage.setTitle("Summary Information");
+            Scene scene = new Scene(root); // Create a scene with the loaded FXML
+            stage.setResizable(false);
+            stage.setScene(scene); // Set the scene for the stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
