@@ -1,3 +1,5 @@
+package org.example.project;
+
 /**
  * @author yunrui huang
  * @update 04/12/2024

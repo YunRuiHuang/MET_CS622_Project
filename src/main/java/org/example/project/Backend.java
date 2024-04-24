@@ -1,3 +1,5 @@
+package org.example.project;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -262,9 +264,9 @@ public class Backend implements BackendInterface {
                 // Retrieve data from the result set for each column
                 String type = resultSet.getString("Type");
                 double amount = resultSet.getDouble("total_amount");
-                if(type.compareToIgnoreCase("in") == 0){
+                if(type.compareToIgnoreCase("income") == 0){
                     summary.setIn(amount);
-                }else if(type.compareToIgnoreCase("out") == 0){
+                }else if(type.compareToIgnoreCase("expend") == 0){
                     summary.setOut(amount);
                 }
 
@@ -310,9 +312,9 @@ public class Backend implements BackendInterface {
                 // Retrieve data from the result set for each column
                 String type = resultSet.getString("Type");
                 double amount = resultSet.getDouble("total_amount");
-                if(type.compareToIgnoreCase("in") == 0){
+                if(type.compareToIgnoreCase("income") == 0){
                     summary.setIn(amount);
-                }else if(type.compareToIgnoreCase("out") == 0){
+                }else if(type.compareToIgnoreCase("expend") == 0){
                     summary.setOut(amount);
                 }
 
@@ -361,9 +363,9 @@ public class Backend implements BackendInterface {
                 // Retrieve data from the result set for each column
                 String type = resultSet.getString("Type");
                 double amount = resultSet.getDouble("total_amount");
-                if(type.compareToIgnoreCase("in") == 0){
+                if(type.compareToIgnoreCase("income") == 0){
                     summary.setIn(amount);
-                }else if(type.compareToIgnoreCase("out") == 0){
+                }else if(type.compareToIgnoreCase("expend") == 0){
                     summary.setOut(amount);
                 }
 

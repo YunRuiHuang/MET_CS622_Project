@@ -1,3 +1,5 @@
+package org.example.project;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
